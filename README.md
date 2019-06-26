@@ -20,3 +20,21 @@ $ flutter create -i swift -a kotlin --with-driver-test flutter_sample
 $ cd flutter_sample
 $ flutter run
 ```
+
+***Firebaseの導入：***
+
+firebaseにプロジェクトを登録
+
+https://firebase.google.com/?hl=ja
+
+firebaseの実装
+
+こちらを参考に
+
+https://firebase.google.com/docs/flutter/setup?hl=ja
+
+***iOS編 注意事項：***
+
+設定ファイル「GoogleService-Info.plist」をダウンロードしXcodeからRunnerフォルダ内に追加するところ。
+
+*Finderでファイルを配置しただけだとプロジェクトに読み込まれないので注意

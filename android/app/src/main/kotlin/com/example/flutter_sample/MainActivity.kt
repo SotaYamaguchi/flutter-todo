@@ -1,4 +1,4 @@
-package com.example.flutter_sample
+package jp.flutter.Sample
 
 import android.os.Bundle
 
