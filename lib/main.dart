@@ -3,14 +3,14 @@
 // found in the LICENSE file.
 
 import 'dart:ui';
-import 'dart:ui' as prefix0;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
-
 import 'package:rapido/rapido.dart';
+
+import 'package:flutter_sample/login.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,9 +27,12 @@ class MyApp extends StatelessWidget {
       title: 'Todo List',
       theme: ThemeData.dark(),
       navigatorObservers: <NavigatorObserver>[observer],
-      home: MyHomePage(
-        title: 'Todo List',
-      ),
+      home: LoginPage(),
+      routes: <String, WidgetBuilder> {
+        // MaterialAppをルートにすると戻るボタンが表示されなくなる
+        '/login': (BuildContext context) => new LoginPage(),
+        '/home': (BuildContext context) => new MyHomePage(title: 'Todo List'),
+      },
     );
   }
 }
@@ -53,28 +56,29 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget _customItemBuilder(int index, Document doc, BuildContext context) {
     return Card(
-        child: Row(
-      children: <Widget>[
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              _showItemIcon(),
-              _showItemTask(index),
-            ],
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                _showItemIcon(),
+                _showItemTask(index),
+              ],
+            ),
           ),
-        ),
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              _showOtherItem(index),
-              _showActionsButton(index, doc, context),
-            ],
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                _showOtherItem(index),
+                _showActionsButton(index, doc, context),
+              ],
+            ),
           ),
-        ),
-      ],
-    ));
+        ],
+      ),
+    );
   }
 
   Widget _showItemIcon() {
@@ -87,9 +91,14 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget _showItemTask(int index) {
     return Padding(
       padding: EdgeInsets.only(left: 20),
-      child: Text(
-        documentList[index]["task"],
-        style: TextStyle(fontWeight: FontWeight.bold),
+      child: SizedBox(
+        width: 120,
+        child: Text(
+          documentList[index]["task"],
+          style: TextStyle(fontWeight: FontWeight.bold),
+          overflow: TextOverflow.ellipsis,
+          maxLines: 5,
+        ),
       ),
     );
   }
@@ -100,7 +109,14 @@ class _MyHomePageState extends State<MyHomePage> {
       child: Column(
         children: <Widget>[
           Text(documentList[index]["date"]),
-          Text(documentList[index]["location"]),
+          SizedBox(
+            width: 100,
+            child: Text(
+              documentList[index]["location"],
+              overflow: TextOverflow.ellipsis,
+              maxLines: 3,
+            ),
+          ),
         ],
       ),
     );
