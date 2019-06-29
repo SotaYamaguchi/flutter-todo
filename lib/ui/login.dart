@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/painting.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage();
@@ -15,6 +16,15 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<FirebaseUser> _signIn(String email, String password) async {
     final FirebaseUser user = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, password: password);
+    if (user.uid.length > 0 && user.uid != null) {
+      Navigator.pushNamed(context, '/home');
+    }
+    return user;
+  }
+
+  Future<FirebaseUser> _signUp(String email, String password) async {
+    FirebaseUser user = await _firebaseAuth.createUserWithEmailAndPassword(
         email: email, password: password);
     if (user.uid.length > 0 && user.uid != null) {
       Navigator.pushNamed(context, '/home');
@@ -38,7 +48,16 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 24.0),
               _showPasswordForm(),
               const SizedBox(height: 24.0),
-              _showLoginButton(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    _showLoginButton(),
+                    _showSignUpButton(),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -78,11 +97,29 @@ class _LoginPageState extends State<LoginPage> {
   Widget _showLoginButton() {
     return Center(
       child: RaisedButton(
-        child: const Text('Login'),
+        child: const Text(
+          'Login',
+        style: TextStyle(color: Colors.white)),
+        color: Colors.lightBlueAccent,
         onPressed: () {
           var email = emailInputController.text;
           var password = passwordInputController.text;
           return _signIn(email, password)
+              .then((FirebaseUser user) => print(user))
+              .catchError((e) => print(e));
+        },
+      )
+    );
+  }
+
+  Widget _showSignUpButton() {
+    return Center(
+      child: RaisedButton(
+        child: const Text('SignUp'),
+        onPressed: () {
+          var email = emailInputController.text;
+          var password = passwordInputController.text;
+          return _signUp(email, password)
               .then((FirebaseUser user) => print(user))
               .catchError((e) => print(e));
         },
