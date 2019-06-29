@@ -31,24 +31,32 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder> {
         // MaterialAppをルートにすると戻るボタンが表示されなくなる
         '/login': (BuildContext context) => new LoginPage(),
-        '/home': (BuildContext context) => new MyHomePage(title: 'Todo List'),
+        '/home': (BuildContext context) => new MyHomePage(
+          title: 'Todo List',
+          analytics: analytics,
+          observer: observer,
+        ),
       },
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key key, this.title, this.analytics, this.observer}) : super(key: key);
 
   final String title;
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState(analytics, observer);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  _MyHomePageState();
+  _MyHomePageState(this.analytics, this.observer);
 
+  final FirebaseAnalyticsObserver observer;
+  final FirebaseAnalytics analytics;
   final DocumentList documentList = DocumentList(
     "task list",
     labels: {"開始日": "date", "タイトル": "task", "場所": "location"},
