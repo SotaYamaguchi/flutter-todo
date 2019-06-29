@@ -7,7 +7,7 @@ import 'package:firebase_analytics/observer.dart';
 
 import 'package:flutter/material.dart';
 
-import 'package:flutter_sample/login.dart';
+import 'package:flutter_sample/ui/login.dart';
 import 'package:flutter_sample/ui/listview_note.dart';
 
 void main() {
