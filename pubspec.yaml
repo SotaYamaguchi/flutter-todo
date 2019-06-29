@@ -21,6 +21,7 @@ dependencies:
     sdk: flutter
   firebase_core: 0.4.0  # add dependency for Firebase Core
   firebase_analytics: 3.0.3  # add dependency for Google Analytics for Firebase
+  firebase_database: 3.0.3
   firebase_auth: 0.11.1
   rapido: 0.1.9
 
