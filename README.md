@@ -27,7 +27,7 @@ firebaseにプロジェクトを登録
 
 https://firebase.google.com/?hl=ja
 
-firebaseの実装
+***firebaseの実装***
 
 こちらを参考に
 
