@@ -29,7 +29,7 @@ https://firebase.google.com/?hl=ja
 
 ***firebaseの実装***
 
-こちらを参考に
+こちらを参考に：
 
 https://firebase.google.com/docs/flutter/setup?hl=ja
 
