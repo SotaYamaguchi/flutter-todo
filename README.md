@@ -33,6 +33,12 @@ firebaseの実装
 
 https://firebase.google.com/docs/flutter/setup?hl=ja
 
+
+下記のファイルは.ignoreしているのでそれぞれダウンロードして配置してください。
+GoogleService-Info.plist
+google-services.json
+
+
 ***iOS編 注意事項：***
 
 設定ファイル「GoogleService-Info.plist」をダウンロードしXcodeからRunnerフォルダ内に追加するところ。
